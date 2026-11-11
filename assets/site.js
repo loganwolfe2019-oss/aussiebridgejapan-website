@@ -45,11 +45,11 @@
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
 
-  // Banner videos: wide screens only; never for reduced motion or data-saver. The photo stays underneath.
+  // Banner videos: load when scrolled into view; never for reduced motion or data-saver. The photo stays underneath.
   var vids = document.querySelectorAll("video[data-src]");
   var saveData = navigator.connection && navigator.connection.saveData;
   if (vids.length && "IntersectionObserver" in window && !saveData &&
-      !matchMedia("(prefers-reduced-motion: reduce)").matches && matchMedia("(min-width: 801px)").matches) {
+      !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var vio = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         var v = en.target;
