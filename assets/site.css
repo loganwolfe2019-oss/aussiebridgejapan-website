@@ -89,6 +89,7 @@ footer.site .logo img { height: 34px; }
 .hero { --gold: #EBD3A0; } /* lighter gold so the kicker and italic stay legible over the brighter photo */
 .hero-inner { padding: 140px 0 110px; max-width: 820px; }
 .hero-inner > * { animation: heroIn .8s cubic-bezier(.2,.7,.2,1) both; }
+.hero-inner > h1, .hero-inner > .lede { animation: none; } /* headline and subhead paint immediately (mobile speed) */
 .hero-inner > :nth-child(2) { animation-delay: .1s; }
 .hero-inner > :nth-child(3) { animation-delay: .22s; }
 .hero-inner > :nth-child(4) { animation-delay: .34s; }
@@ -291,6 +292,10 @@ label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transfor
 .info-block { border-radius: 14px; border-left: 3px solid var(--gold); background: #fff; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 28px; }
 .info-block h3 { font-size: 15px; font-weight: 600; font-family: var(--sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .info-block p { font-size: 15px; color: rgba(26,26,26,0.75); }
+
+/* booking page: reserve room for the Cal.com embed so the page does not jump */
+#my-cal-inline { min-height: 700px; }
+@media (max-width: 767px) { #my-cal-inline { min-height: 1150px; } }
 
 /* footer */
 footer.site { background: #070d1f; color: rgba(255,255,255,0.68); padding: 80px 0 36px; font-size: 14px; }
