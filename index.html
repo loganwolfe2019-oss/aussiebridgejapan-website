@@ -126,7 +126,268 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=1447b94">
+<link rel="stylesheet" href="assets/site.css?v=2ab8986">
+<style>
+/* ---- scroll-format layer on top of site.css (same tokens: navy, gold, cream, Cormorant, Inter Tight) ---- */
+.x-pin{position:relative;padding:0!important}   /* site.css pads every section by 120px; pinned stages must sit edge to edge */
+.x-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.x-vid{will-change:transform;filter:brightness(1.12) saturate(1.06)}
+/* readability: soft dark wash behind the hero text column and the closing copy, so the brighter footage never washes the words out */
+.x-hero-copy::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(10,17,40,.55),rgba(10,17,40,.18) 55%,rgba(10,17,40,0) 80%)}
+#x-cta .copy::before{content:"";position:absolute;inset:-60px -80px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,rgba(10,17,40,.5),rgba(10,17,40,0) 70%)}
+.x-stage canvas,.x-stage .x-poster{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.x-shade{position:absolute;inset:0;background:var(--navy);pointer-events:none}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .03em .08em}
+.w>span{display:inline-block;will-change:transform}
+
+/* 1. hero */
+#x-hero{height:150vh}
+#x-hero .x-stage::before{content:"";position:absolute;left:0;right:0;top:0;height:190px;z-index:2;pointer-events:none;
+  background:linear-gradient(rgba(10,17,40,.72),rgba(10,17,40,0))}
+/* veil: dissolves a pinned section in from / out to the cream of its neighbours, so there are no hard seams */
+.x-veil{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;background:var(--cream)}
+.x-veil.c2{background:var(--cream-2)}
+#x-hero .x-stage{background:var(--navy);color:#fff;--gold:var(--gold-bright)}
+.x-hero-copy{position:absolute;inset:0;display:flex;align-items:center;z-index:3;padding-top:76px}
+.x-hero-copy .wrap{width:100%}
+.x-hero-copy h1{font-size:clamp(40px,min(7.4vw,10.5vh),108px);line-height:1.02;max-width:13ch;margin:22px 0 26px;color:#fff}
+.x-hero-copy .lede{color:rgba(255,255,255,.82);max-width:56ch}
+.x-hero-copy .hero-ctas{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-top:34px}
+.x-hero-copy .hero-note{margin-top:22px;font-size:14px;color:rgba(255,255,255,.62)}
+.x-cue{position:absolute;bottom:34px;left:0;right:0;text-align:center;z-index:3;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.x-cue::after{content:"";display:block;width:1px;height:38px;background:var(--gold-bright);margin:12px auto 0;animation:xcue 1.8s ease-in-out infinite}
+@keyframes xcue{0%,100%{transform:scaleY(.25);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+.x-cue{display:none}   /* the hero copy now fills the screen; the cue collided with the small print */
+@media (max-width:560px){
+  #heroCopy .hero-ctas{flex-direction:column;align-items:stretch;gap:12px;margin-top:22px}
+  #heroCopy .hero-ctas .btn{padding:15px 20px;white-space:nowrap}
+  #heroCopy .hero-ctas .text-link{align-self:center}
+  #heroCopy h1{margin:14px 0 16px}
+  #heroCopy .hero-note{margin-top:12px}
+}
+.x-load .w>span{transform:translateY(110%)}
+.x-in .w>span{transform:none;transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.x-fade{opacity:0;transform:translateY(16px)}
+.x-in .x-fade{opacity:1;transform:none;transition:opacity 1s ease .55s,transform 1s cubic-bezier(.16,1,.3,1) .55s}
+
+/* 2. headline breaks open onto the image */
+#x-break{height:230vh;background:var(--cream)}
+#x-break .x-stage{background:var(--cream)}
+.x-break-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:clip-path,transform}
+.x-break-line{position:absolute;left:0;right:0;text-align:center;font-family:var(--serif);font-weight:600;font-size:clamp(44px,8vw,128px);line-height:1;color:var(--ink);z-index:2;will-change:transform,opacity}
+.x-break-line.l1{top:calc(50% - .5em - 22vh)}
+.x-break-line.l2{top:calc(50% - .5em + 22vh)}
+.x-break-line .accent-i{color:var(--gold-ink)}
+.x-break-k{position:absolute;top:16%;left:0;right:0;display:flex;justify-content:center;z-index:2}
+.x-break-over{position:absolute;inset:0;display:grid;place-items:center;z-index:3;color:#fff;--gold:var(--gold-bright);opacity:0}
+.x-break-over .box{max-width:760px;padding:0 24px;text-align:center}
+.x-break-over .lede{color:rgba(255,255,255,.88);margin:20px auto 0}
+.x-break-over .chip-row{justify-content:center;margin:28px 0 14px}
+.x-break-over .chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.x-break-over .note{font-size:14px;color:rgba(255,255,255,.7)}
+.x-break-over .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px}
+
+/* 3. services: sticky split */
+#services .x-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.x-svc-pin{position:sticky;top:76px;height:calc(100vh - 76px);height:calc(100svh - 76px);display:grid;place-items:center}
+.x-svc-panel{position:relative;width:100%;aspect-ratio:4/5;max-height:78vh;border-radius:28px;background:var(--navy);color:#fff;overflow:hidden;--gold:var(--gold-bright)}
+.x-svc-face{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;gap:26px;padding:clamp(28px,4vw,48px);opacity:0;transform:translateY(-10px);
+  transition:opacity .22s ease,transform .3s ease;pointer-events:none}
+.x-svc-face.on{opacity:1;transform:none;transition:opacity .5s ease .18s,transform .7s cubic-bezier(.16,1,.3,1) .18s}
+.x-svc-face:not(.on){transform:translateY(10px)}
+.x-svc-face.was{transform:translateY(-10px)}
+.x-svc-face .n{font-family:var(--serif);font-size:clamp(110px,14vw,200px);line-height:.8;color:var(--gold-bright)}
+.x-svc-face .icon{width:64px;height:64px}
+.x-svc-face .icon svg{width:100%;height:100%;fill:none;stroke:var(--gold-bright);stroke-width:1.4}
+.x-svc-face h3{font-size:clamp(30px,3vw,42px);color:#fff}
+.x-svc-bar{position:absolute;left:0;bottom:0;height:3px;background:var(--gold-bright);transform-origin:0 50%;width:100%;transform:scaleX(0);will-change:transform}
+.x-svc-photos{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:inherit}
+.x-svc-photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);filter:saturate(.9);
+  transition:opacity 1s ease,transform 6s cubic-bezier(.2,.6,.2,1)}
+.x-svc-photos img.on{opacity:.55;transform:scale(1)}
+.x-svc-photos::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,17,40,.12),rgba(10,17,40,.4) 45%,rgba(10,17,40,.88) 80%)}
+.x-svc-face,.x-svc-toc,.x-svc-count,.x-svc-bar{z-index:1}
+.x-svc-face .icon{display:none}
+@media (max-height:780px){
+  .x-svc-face .n{font-size:min(14vw,17vh)}
+  .x-svc-toc{gap:3px}
+  .x-svc-toc li{font-size:17px}
+}
+.x-svc-toc{position:absolute;left:clamp(28px,4vw,48px);right:clamp(28px,4vw,48px);bottom:clamp(30px,4vw,48px);list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.x-svc-toc li{font-family:var(--serif);font-size:clamp(18px,1.5vw,22px);color:rgba(255,255,255,.32);display:flex;align-items:center;gap:12px;transition:color .4s ease}
+.x-svc-toc li::before{content:"";width:0;height:1px;background:var(--gold-bright);transition:width .45s cubic-bezier(.16,1,.3,1)}
+.x-svc-toc li.on{color:#fff}
+.x-svc-toc li.on::before{width:26px}
+.x-svc-toc li.done{color:rgba(255,255,255,.55)}
+.x-svc-count{position:absolute;right:clamp(28px,4vw,48px);top:clamp(28px,4vw,48px);font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.55)}
+.x-svc-list{padding:12vh 0}
+.x-svc-item{min-height:38vh;display:flex;flex-direction:column;justify-content:center;opacity:.2;will-change:opacity}
+.x-svc-item .num-sm{display:none;font-family:var(--serif);font-size:44px;color:var(--gold-ink)}
+.x-svc-item h3{font-size:clamp(34px,3.6vw,52px);margin-bottom:16px}
+.x-svc-item p{font-size:18px;color:rgba(26,26,26,.7);max-width:42ch}
+
+/* 4. showcase: horizontal journey */
+#x-strip{height:210vh}
+#x-strip .x-stage{background:var(--navy);color:#fff;--gold:var(--gold-bright)}
+.x-track{position:absolute;top:0;left:0;height:100%;display:flex;will-change:transform}
+.x-panel{position:relative;width:100vw;height:100%;flex:none;overflow:hidden}
+.x-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.x-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,40,.55),rgba(10,17,40,.1) 40%,rgba(10,17,40,.75))}
+.x-strip-head{position:absolute;top:96px;left:0;right:0;z-index:3;text-align:center}
+.x-strip-head h2{color:#fff;margin-top:14px}
+.x-strip-words{position:absolute;bottom:10%;left:0;right:0;z-index:3;text-align:center;font-family:var(--serif);font-size:clamp(30px,4.2vw,62px);font-weight:600;line-height:1}
+.x-strip-words span{color:rgba(255,255,255,.28);transition:color .45s ease}
+.x-strip-words span.on{color:#fff}
+.x-strip-words i{font-style:italic;color:var(--gold-bright);font-weight:500;margin:0 .18em}
+.x-cap{position:absolute;left:0;right:0;bottom:calc(10% + clamp(52px,5.6vw,84px));z-index:2;text-align:center;padding:0 24px;
+  font-size:clamp(15px,1.4vw,18px);letter-spacing:.06em;color:#fff;text-shadow:0 1px 3px rgba(10,17,40,.9),0 2px 22px rgba(10,17,40,.85)}
+.x-strip-head h2,.x-strip-words{text-shadow:0 2px 24px rgba(10,17,40,.75)}
+.x-cap::before{content:"";display:block;width:36px;height:1px;background:var(--gold-bright);margin:0 auto 12px}
+/* gold ticker before the footer */
+.x-ticker{overflow:hidden;background:var(--cream);border-top:1px solid var(--line);padding:clamp(34px,5vw,64px) 0}
+.x-tick-track{display:flex;width:max-content;white-space:nowrap;will-change:transform;font-family:var(--serif);font-size:clamp(46px,8vw,124px);line-height:1;color:var(--gold-ink)}
+.x-tick-track span{font-weight:600;padding:0 .35em}
+.x-tick-track em{font-style:italic;font-weight:500;color:var(--navy);padding:0 .35em}
+.x-tick-track i{font-style:normal;color:var(--gold-bright);padding:0 .2em}
+.x-dots{position:absolute;left:24px;top:50%;transform:translateY(-50%);z-index:3;display:grid;gap:12px}
+.x-dots b{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .3s,transform .3s}
+.x-dots b.on{background:var(--gold-bright);transform:scale(1.3)}
+
+/* 5. process: a gold line draws down the steps */
+#process .x-path{position:relative;max-width:980px;margin:40px auto 0;padding-left:72px}
+.x-line-bg,.x-line{position:absolute;left:26px;top:0;bottom:0;width:2px;background:var(--line)}
+.x-line{background:var(--gold-ink);transform-origin:top;transform:scaleY(0)}
+.x-step{position:relative;display:grid;grid-template-columns:clamp(84px,9vw,124px) 1fr;column-gap:22px;align-items:start;padding:30px 0 42px;opacity:.25;transform:translateY(20px);transition:opacity .7s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.x-step.on{opacity:1;transform:none}
+.x-step .dot{position:absolute;left:-58px;top:40px;width:26px;height:26px;border-radius:50%;background:var(--cream-2);border:2px solid var(--line);transition:background .4s,border-color .4s}
+.x-step.on .dot{background:var(--gold-bright);border-color:var(--gold-bright)}
+.x-step .num{grid-row:1/3;font-family:var(--serif);font-weight:500;font-size:clamp(64px,7vw,100px);line-height:.82;color:var(--gold-ink);opacity:.3;transition:opacity .6s ease}
+.x-step.on .num{opacity:1}
+.x-step h3,.x-step p{grid-column:2}
+.x-step h3{font-size:clamp(30px,3.4vw,46px);margin:6px 0 10px}
+.x-step p{font-size:18px;color:rgba(26,26,26,.7);max-width:52ch}
+
+/* 6. model: the statement fills in word by word */
+#x-model{height:180vh}
+#x-model .x-stage{background:var(--navy);color:#fff;display:flex;align-items:center;padding-top:76px;--gold:var(--gold-bright)}
+#x-model .wrap{width:100%}
+.x-fill{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6vw,92px);line-height:1.04;max-width:16ch;margin:18px 0 0}
+.x-fill .w>span{opacity:.14}
+.x-fill .accent-i{color:var(--gold-bright)}
+.x-points{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:36px}
+.x-points .step{opacity:0;transform:translateY(20px)}
+.x-points h3{color:#fff;font-size:24px;margin-bottom:8px}
+.x-points p{color:rgba(255,255,255,.7);font-size:15px}
+
+/* 8. CTA over the ship */
+#x-cta{height:160vh}
+#x-cta .x-stage{background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center;--gold:var(--gold-bright)}
+#x-cta .copy{position:relative;z-index:3;padding:0 24px;max-width:900px}
+#x-cta h2{color:#fff;font-size:clamp(40px,5.6vw,80px)}
+#x-cta .lede{color:rgba(255,255,255,.82);margin:22px auto 0}
+#x-cta .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+#x-cta .kicker{justify-content:center}
+
+@media (max-width:1000px){ #services .x-split{gap:32px} .x-svc-toc li{font-size:16px} }
+@media (max-width:680px){
+  #services .x-split{grid-template-columns:1fr;gap:0}
+  .x-svc-pin{display:none}
+  .x-svc-list{padding:4vh 0}
+  .x-svc-item{min-height:auto;padding:34px 0;opacity:1!important}
+  .x-svc-item .num-sm{display:block}
+  .x-svc-item{display:grid;grid-template-columns:58px 1fr;column-gap:14px;align-items:start;border-top:1px solid var(--line);position:relative}
+  .x-svc-item::before{content:"";position:absolute;left:0;top:-1px;width:58px;height:2px;background:var(--gold-bright)}
+  .x-svc-item .num-sm{grid-row:1/3;font-size:46px;line-height:.82;font-weight:500}
+  .x-svc-item h3,.x-svc-item p{grid-column:2}
+  .x-svc-item h3{font-size:28px;margin-bottom:10px}
+  .x-svc-item p{font-size:16px}
+  .x-points{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .x-hero-copy h1{font-size:44px}
+  .x-points{grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .x-points h3{font-size:18px}
+  .x-points p{font-size:13px}
+  #modelLede{display:none}
+  .x-dots{display:none}
+  .x-strip-head{padding:0 16px;top:88px}
+  .x-strip-head h2{font-size:30px}
+  .x-strip-words{font-size:26px;padding:0 16px;line-height:1.25}
+  .x-cap{bottom:calc(11% + 92px);font-size:14px}
+  #breakImg{object-position:22% 62%!important}   /* keep the whole logo on the can in frame on phones */
+  .x-panel:first-child img{object-position:28% 50%!important}
+  #process .x-path{padding-left:52px}
+  .x-line-bg,.x-line{left:16px}
+  .x-step .dot{left:-46px;width:22px;height:22px}
+  .x-step{grid-template-columns:58px 1fr;column-gap:14px}
+  .x-step .num{font-size:46px}
+}
+/* 7. FAQ */
+.x-faq{padding:120px 0}
+.x-faq-grid{display:grid;grid-template-columns:minmax(300px,5fr) 7fr;gap:64px;align-items:start}
+.x-faq-side{position:sticky;top:110px}
+.x-faq-panel{background:var(--navy);color:#fff;border-radius:28px;padding:clamp(32px,4vw,52px);--gold:var(--gold-bright);position:relative;overflow:hidden}
+.x-faq-panel::after{content:"?";position:absolute;right:-10px;bottom:-70px;font-family:var(--serif);font-size:300px;line-height:1;color:rgba(197,160,89,.08);pointer-events:none}
+.x-faq-panel h2{color:#fff;margin:16px 0 14px}
+.x-faq-panel .lede{color:rgba(255,255,255,.72);margin-bottom:28px}
+/* full-width booking buttons */
+.btn.x-wide,.x-faq-panel .btn,.x-faq-more .btn{display:flex;width:100%;padding:20px 32px;font-size:16px}
+.x-faq-more{flex-direction:column;align-items:stretch;justify-content:flex-start}
+.x-break-over .hero-ctas,#x-cta .hero-ctas{display:flex;flex-direction:column;align-items:stretch;gap:14px}
+.x-break-over .hero-ctas .btn,#x-cta .hero-ctas .btn{display:flex;width:100%;padding:20px 32px;font-size:16px}
+/* hero: the button fills the row with "How it works" beside it, one row instead of two, so everything fits on screen */
+.x-hero-copy .hero-ctas{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:24px}
+.x-hero-copy .hero-ctas .btn{flex:1 1 auto;display:flex;padding:18px 32px;font-size:16px}
+.x-hero-copy .hero-ctas .text-link{flex:none;white-space:nowrap}
+@media (max-height:700px){
+  .x-hero-copy h1{font-size:clamp(34px,min(7vw,9vh),108px);margin:12px 0 14px}
+  .x-hero-copy .lede{font-size:15px}
+  .x-hero-copy .hero-ctas{margin-top:18px}
+  .x-hero-copy .hero-ctas .btn{padding:15px 28px}
+  .x-hero-copy .hero-note{margin-top:10px;font-size:13px}
+}
+.x-faq-mail{margin-top:18px;font-size:14px;color:rgba(255,255,255,.6)}
+.x-faq-mail a{color:var(--gold-bright);border-bottom:1px solid rgba(197,160,89,.4)}
+.x-faq-group{font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-ink);margin:44px 0 10px;display:flex;align-items:center;gap:14px}
+.x-faq-group:first-child{margin-top:6px}
+.x-faq-group::after{content:"";flex:1;height:1px;background:var(--line)}
+.x-q{position:relative;border-radius:16px;transition:background .35s ease,box-shadow .35s ease}
+.x-q+.x-q{border-top:1px solid var(--line)}
+.x-q[open],.x-q.opening{background:#fff;box-shadow:0 18px 40px -28px rgba(10,17,40,.35);border-top-color:transparent}
+.x-q[open]+.x-q,.x-q.opening+.x-q{border-top-color:transparent}
+.x-q::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--gold-bright);transform:scaleY(0);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.x-q[open]::before,.x-q.opening::before{transform:scaleY(1)}
+.x-q summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:52px 1fr 36px;align-items:center;gap:10px;padding:22px 22px 22px 20px}
+.x-q summary::-webkit-details-marker{display:none}
+.x-q summary:focus-visible{outline:2px solid var(--gold-ink);outline-offset:2px;border-radius:16px}
+.x-q .qn{font-family:var(--serif);font-size:20px;color:var(--gold-ink);letter-spacing:.06em}
+.x-q .qt{font-family:var(--serif);font-weight:600;font-size:clamp(20px,1.9vw,25px);line-height:1.2;color:var(--ink);transition:color .25s}
+.x-q summary:hover .qt{color:var(--gold-ink)}
+.x-q .qi{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);transition:transform .45s cubic-bezier(.16,1,.3,1),background .3s,border-color .3s}
+.x-q .qi::before,.x-q .qi::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;background:var(--gold-ink);transform:translate(-50%,-50%)}
+.x-q .qi::after{transform:translate(-50%,-50%) rotate(90deg)}
+.x-q[open] .qi,.x-q.opening .qi{transform:rotate(135deg);background:var(--gold-bright);border-color:var(--gold-bright)}
+.x-q[open] .qi::before,.x-q[open] .qi::after,.x-q.opening .qi::before,.x-q.opening .qi::after{background:var(--navy)}
+.x-q.closing .qi{transform:none;background:transparent;border-color:var(--line)}
+.x-q.closing .qi::before,.x-q.closing .qi::after{background:var(--gold-ink)}
+.x-q .qa{overflow:hidden;padding:0 70px 0 82px}
+.x-q .qa p{padding-bottom:24px;font-size:16px;color:rgba(26,26,26,.72);max-width:62ch}
+.x-faq-more{margin-top:44px;padding:26px 28px;border-radius:18px;border:1px dashed rgba(134,102,42,.45);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.x-faq-more p{font-size:16px;color:rgba(26,26,26,.75)}
+.x-faq-more strong{color:var(--ink)}
+.x-faq-more a:not(.btn){color:var(--gold-ink);border-bottom:1px solid rgba(134,102,42,.4)}
+@media (max-width:900px){
+  .x-faq{padding:80px 0}
+  .x-faq-grid{grid-template-columns:1fr;gap:34px}
+  .x-faq-side{position:static}
+  .x-q summary{grid-template-columns:36px 1fr 32px;padding:18px 14px 18px 14px}
+  .x-q .qn{font-size:17px}
+  .x-q .qi{width:32px;height:32px}
+  .x-q .qa{padding:0 18px 0 60px}
+  .x-faq-more{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){ .x-in .w>span,.x-in .x-fade{transition:none} }
+</style>
 </head>
 <body>
 
@@ -151,117 +412,111 @@
 
 <main id="top">
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Introduction">
-    <div class="hero-bg"><img src="assets/hero.webp" srcset="assets/hero-800.webp 800w, assets/hero.webp 1344w" sizes="100vw" width="1344" height="768" alt="" fetchpriority="high"><video class="bg-video" data-src="assets/hero-loop.mp4" loop muted playsinline preload="none" aria-hidden="true"></video></div>
-    <div class="wrap">
-      <div class="hero-inner">
-        <span class="kicker">For Australian food and drink brands</span>
-        <h1>Sell your brand in Japan <span class="accent-i">without setting up there</span></h1>
-        <p class="lede">We represent Australian food and drink brands in Japan, introducing them to bars, restaurants and retailers. Your stock stays yours throughout: we work on consignment rather than buying it.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a>
-          <a class="text-link" href="#process">How it works</a>
-        </div>
-        <p class="hero-note">A free, no-obligation 15-minute call to talk through whether Japan suits your brand.</p>
-      </div>
-    </div>
-    <div class="scroll-cue" aria-hidden="true">Scroll</div>
-  </section>
-
-  <!-- INTRO -->
-  <section id="about">
-    <div class="wrap split">
-      <div class="reveal">
-        <span class="kicker">Australia → Japan</span>
-        <h2 style="margin:18px 0 20px">Your Brand, <span class="accent-i">the Japanese Market</span></h2>
-        <p class="lede">We coordinate the export paperwork, freight and compliance, then introduce your products to Japanese venues and shops, so you can test Japan without opening an office there.</p>
-      </div>
-      <div class="intro-panel reveal">
-        <span class="kicker">What We Represent</span>
-        <div class="chip-row">
-          <span class="chip">Craft Beer &amp; RTDs</span>
-          <span class="chip">Wine &amp; Spirits</span>
-          <span class="chip">Premium Mixers</span>
-          <span class="chip">Food &amp; Lifestyle</span>
-        </div>
-        <p class="intro-panel-note">Not sure if your product fits? That's what the free consultation is for.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-gold" href="services.html">Our Services</a>
-          <a class="btn btn-ghost" href="contact.html">Send an enquiry</a>
+  <!-- 1. HERO: the road moves as you scroll -->
+  <section id="x-hero" class="x-pin" aria-label="Introduction">
+    <div class="x-stage">
+      <video class="x-poster x-vid" id="heroVid" src="assets/hero-loop.mp4" poster="assets/hero.webp" autoplay loop muted playsinline preload="auto" aria-hidden="true"></video>
+      <div class="x-shade" id="heroShade" style="opacity:.3"></div>
+      <div class="x-veil"></div>
+      <div class="x-hero-copy x-load" id="heroCopy">
+        <div class="wrap">
+          <span class="kicker x-fade">For Australian food and drink brands</span>
+          <h1 class="x-split-words">Sell your brand in Japan <span class="accent-i">without setting up there</span></h1>
+          <p class="lede x-fade">We represent Australian food and drink brands in Japan, introducing them to bars, restaurants and retailers. Your stock stays yours throughout: we work on consignment rather than buying it.</p>
+          <div class="hero-ctas x-fade">
+            <a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a>
+            <a class="text-link" href="#process">How it works</a>
+          </div>
+          <p class="hero-note x-fade">A free, no-obligation 15-minute call to talk through whether Japan suits your brand.</p>
         </div>
       </div>
+      <div class="x-cue" aria-hidden="true">Scroll</div>
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- 2. INTRO: the headline opens onto the product -->
+  <section id="x-break" class="x-pin" aria-label="Your brand, the Japanese market">
+    <div class="x-stage">
+      <picture><source media="(max-width:560px)" srcset="assets/craft-beer-logo-sm-800.webp"><img class="x-break-img" id="breakImg" src="assets/craft-beer-logo.webp" srcset="assets/craft-beer-logo-800.webp 800w, assets/craft-beer-logo.webp 1184w" sizes="100vw" alt="Craft beer can with the Aussie Bridge Japan logo" style="object-position:36% 62%"></picture>
+      <div class="x-shade" id="breakShade" style="opacity:0"></div>
+      <div class="x-veil c2"></div>
+      <span class="kicker x-break-k" id="breakK">Australia → Japan</span>
+      <div class="x-break-line l1" id="breakL1">Your Brand,</div>
+      <div class="x-break-line l2" id="breakL2"><span class="accent-i">the Japanese Market</span></div>
+      <div class="x-break-over" id="breakOver">
+        <div class="box">
+          <span class="kicker" style="justify-content:center">What We Represent</span>
+          <p class="lede">We coordinate the export paperwork, freight and compliance, then introduce your products to Japanese venues and shops, so you can test Japan without opening an office there.</p>
+          <div class="chip-row">
+            <span class="chip">Craft Beer &amp; RTDs</span>
+            <span class="chip">Wine &amp; Spirits</span>
+            <span class="chip">Premium Mixers</span>
+            <span class="chip">Food &amp; Lifestyle</span>
+          </div>
+          <p class="note">Not sure if your product fits? That's what the free consultation is for.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-gold" href="services.html">Our Services</a>
+            <a class="btn btn-ghost" href="contact.html">Send an enquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SERVICES: sticky split -->
   <section id="services" class="bg-cream-2">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head reveal" style="padding-top:20px">
         <span class="kicker">Our Services</span>
         <h2>What We <span class="accent-i">Do for You</span></h2>
         <p class="lede">The work between "we'd like to try Japan" and a Japanese venue reordering your product.</p>
       </div>
-      <div class="grid-3">
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
-          <h3>Brand Representation</h3>
-          <p>We act as your brand's representative in Japan, managing buyer relationships and positioning your product for the Japanese market.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg></div>
-          <h3>Compliance Coordination</h3>
-          <p>We coordinate the regulatory paperwork, documentation and Japanese labelling your product needs before it ships.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></svg></div>
-          <h3>Import &amp; Storage</h3>
-          <p>Your stock is imported and stored in Japan, starting in Nagoya. Import and storage details are confirmed per brand.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></div>
-          <h3>Market Entry Strategy</h3>
-          <p>Launch planning, pricing for Japan and a realistic read on where your product fits.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12a2 2 0 0 1-2 1.8h-9A2 2 0 0 1 5.5 19L4 7zM8 10V6a4 4 0 0 1 8 0v4"/></svg></div>
-          <h3>Retail</h3>
-          <p>Pitch for shelf space with specialty retailers, supermarkets and department store food halls.</p>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24"><path d="M5 3h9l-2 7h5L9 21l2-8H6L5 3z"/></svg></div>
-          <h3>Hospitality</h3>
-          <p>Introduce your products to bars, restaurants and hotels, starting in Nagoya.</p>
-        </article>
+      <div class="x-split">
+        <div class="x-svc-pin">
+          <div class="x-svc-panel" id="svcPanel">
+            <div class="x-svc-photos" aria-hidden="true"><img src="assets/svc/brand.webp" alt="" loading="lazy"><img src="assets/svc/compliance.webp" alt="" loading="lazy"><img src="assets/svc/import.webp" alt="" loading="lazy"><img src="assets/svc/market.webp" alt="" loading="lazy"><img src="assets/svc/retail.webp" alt="" loading="lazy"><img src="assets/svc/hospitality.webp" alt="" loading="lazy"></div>
+            <div class="x-svc-face" data-i="0"><span class="n">01</span><div><div class="icon"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div></div></div>
+            <div class="x-svc-face" data-i="1"><span class="n">02</span><div><div class="icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg></div></div></div>
+            <div class="x-svc-face" data-i="2"><span class="n">03</span><div><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></svg></div></div></div>
+            <div class="x-svc-face" data-i="3"><span class="n">04</span><div><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></div></div></div>
+            <div class="x-svc-face" data-i="4"><span class="n">05</span><div><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12a2 2 0 0 1-2 1.8h-9A2 2 0 0 1 5.5 19L4 7zM8 10V6a4 4 0 0 1 8 0v4"/></svg></div></div></div>
+            <div class="x-svc-face" data-i="5"><span class="n">06</span><div><div class="icon"><svg viewBox="0 0 24 24"><path d="M5 3h9l-2 7h5L9 21l2-8H6L5 3z"/></svg></div></div></div>
+            <div class="x-svc-bar" id="svcBar"></div>
+            <span class="x-svc-count" id="svcCount">01 / 06</span>
+            <ol class="x-svc-toc" id="svcToc"><li>Brand Representation</li><li>Compliance Coordination</li><li>Import &amp; Storage</li><li>Market Entry Strategy</li><li>Retail</li><li>Hospitality</li></ol>
+          </div>
+        </div>
+        <div class="x-svc-list">
+          <div class="x-svc-item" data-i="0"><span class="num-sm">01</span><h3>Brand Representation</h3><p>We act as your brand's representative in Japan, managing buyer relationships and positioning your product for the Japanese market.</p></div>
+          <div class="x-svc-item" data-i="1"><span class="num-sm">02</span><h3>Compliance Coordination</h3><p>We coordinate the regulatory paperwork, documentation and Japanese labelling your product needs before it ships.</p></div>
+          <div class="x-svc-item" data-i="2"><span class="num-sm">03</span><h3>Import &amp; Storage</h3><p>Your stock is imported and stored in Japan, starting in Nagoya. Import and storage details are confirmed per brand.</p></div>
+          <div class="x-svc-item" data-i="3"><span class="num-sm">04</span><h3>Market Entry Strategy</h3><p>Launch planning, pricing for Japan and a realistic read on where your product fits.</p></div>
+          <div class="x-svc-item" data-i="4"><span class="num-sm">05</span><h3>Retail</h3><p>Pitch for shelf space with specialty retailers, supermarkets and department store food halls.</p></div>
+          <div class="x-svc-item" data-i="5"><span class="num-sm">06</span><h3>Hospitality</h3><p>Introduce your products to bars, restaurants and hotels, starting in Nagoya.</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE -->
-  <section class="on-dark">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="kicker">Premium Craft</span>
+  <!-- 4. SHOWCASE: sideways journey -->
+  <section id="x-strip" class="x-pin" aria-label="Australian quality, Japanese market">
+    <div class="x-stage">
+      <div class="x-veil c2"></div>
+      <div class="x-track" id="track">
+        <div class="x-panel"><picture><source media="(max-width:560px)" srcset="assets/craft-beer-logo-sm-800.webp"><img src="assets/craft-beer-logo.webp" srcset="assets/craft-beer-logo-800.webp 800w, assets/craft-beer-logo.webp 1184w" sizes="100vw" alt="Craft beer can with the Aussie Bridge Japan logo" style="object-position:36% 62%"></picture><p class="x-cap">Craft beer, RTDs, wine, spirits and mixers</p></div>
+        <div class="x-panel"><img src="assets/retail.webp" alt="Japanese luxury retail"><p class="x-cap">Specialty retailers, supermarkets and department store food halls</p></div>
+        <div class="x-panel"><img src="assets/hospitality.webp" alt="Japanese bar interior"><p class="x-cap">Bars, restaurants and hotels, starting in Nagoya</p></div>
+      </div>
+      <div class="x-strip-head">
+        <span class="kicker" style="justify-content:center">Premium Craft</span>
         <h2>Australian Quality, <span class="accent-i">Japanese Market</span></h2>
       </div>
-      <div class="showcase-grid reveal">
-        <figure>
-          <img src="assets/craft-beer.webp" srcset="assets/craft-beer-800.webp 800w, assets/craft-beer.webp 1184w" sizes="(max-width: 800px) 100vw, 58vw" width="1184" height="864" alt="Premium Australian craft beer" loading="lazy">
-          <figcaption>PREMIUM CRAFT</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/retail.webp" srcset="assets/retail-800.webp 800w, assets/retail.webp 1184w" sizes="(max-width: 800px) 100vw, 42vw" width="1184" height="864" alt="Japanese luxury retail" loading="lazy">
-          <figcaption>RETAIL</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/hospitality.webp" srcset="assets/hospitality-800.webp 800w, assets/hospitality.webp 1184w" sizes="(max-width: 800px) 100vw, 42vw" width="1184" height="864" alt="Japanese bar interior" loading="lazy">
-          <figcaption>HOSPITALITY</figcaption>
-        </figure>
-      </div>
+      <div class="x-dots" id="dots"><b class="on"></b><b></b><b></b></div>
+      <div class="x-strip-words" id="stripWords"><span class="on">Premium Craft</span><i>to</i><span>Retail</span><i>to</i><span>Hospitality</span></div>
     </div>
   </section>
 
-  <!-- PROCESS -->
+  <!-- 5. PROCESS -->
   <section id="process" class="bg-cream-2">
     <div class="wrap">
       <div class="section-head reveal">
@@ -269,67 +524,97 @@
         <h2>Your Path <span class="accent-i">to Japan</span></h2>
         <p class="lede">Four steps from first conversation to repeat orders.</p>
       </div>
-      <div class="num-cards">
-        <article class="num-card reveal"><span class="num">01</span><h3>Free Consultation</h3><p>We look at your products, pricing and volumes, and tell you honestly whether Japan is a good fit.</p></article>
-        <article class="num-card reveal"><span class="num">02</span><h3>Paperwork &amp; Labels</h3><p>Japanese labelling, import documents and pricing for Japan, sorted before anything ships.</p></article>
-        <article class="num-card reveal"><span class="num">03</span><h3>Import &amp; Storage</h3><p>Your stock is imported and stored in Nagoya. It stays yours until it sells.</p></article>
-        <article class="num-card reveal"><span class="num">04</span><h3>Introductions &amp; Growth</h3><p>We present your products to bars, restaurants and shops, follow up on orders and report back on what sells.</p></article>
+      <div class="x-path" id="path">
+        <div class="x-line-bg"></div><div class="x-line" id="pathLine"></div>
+        <div class="x-step"><span class="dot"></span><span class="num">01</span><h3>Free Consultation</h3><p>We look at your products, pricing and volumes, and tell you honestly whether Japan is a good fit.</p></div>
+        <div class="x-step"><span class="dot"></span><span class="num">02</span><h3>Paperwork &amp; Labels</h3><p>Japanese labelling, import documents and pricing for Japan, sorted before anything ships.</p></div>
+        <div class="x-step"><span class="dot"></span><span class="num">03</span><h3>Import &amp; Storage</h3><p>Your stock is imported and stored in Nagoya. It stays yours until it sells.</p></div>
+        <div class="x-step"><span class="dot"></span><span class="num">04</span><h3>Introductions &amp; Growth</h3><p>We present your products to bars, restaurants and shops, follow up on orders and report back on what sells.</p></div>
       </div>
-      <div class="reveal" style="margin-top:40px"><a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a></div>
+      <div class="reveal" style="margin-top:34px"><a class="btn btn-gold x-wide" href="book-consultation.html">Book a free consultation</a></div>
     </div>
   </section>
 
-  <!-- MODEL (short version; full version on services.html#model) -->
-  <section id="model" class="on-dark">
-    <div class="wrap">
-      <div class="section-head reveal">
+  <!-- 6. MODEL -->
+  <section id="x-model" class="x-pin" aria-label="Our commercial model">
+    <div class="x-stage">
+      <div class="x-veil c2"></div>
+      <div class="wrap">
         <span class="kicker">Our Commercial Model</span>
-        <h2>A Partnership, <span class="accent-i">Not a Purchase</span></h2>
-        <p class="lede">We work on consignment, with terms agreed individually with each brand.</p>
-      </div>
-      <div class="steps reveal" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-        <div class="step"><h3>Your stock, your ownership</h3><p>Your products remain yours until they are sold in Japan.</p></div>
-        <div class="step"><h3>Sold on your behalf</h3><p>Rather than buying your stock, we represent and sell it for you.</p></div>
-        <div class="step"><h3>Storage &amp; representation</h3><p>A fee covers storage, handling and ongoing representation in Japan.</p></div>
-        <div class="step"><h3>Commission on sales</h3><p>We earn a commission on sales, so our interests are aligned with yours.</p></div>
-      </div>
-      <p style="margin-top:36px"><a class="text-link" href="services.html#model">Read more about how we work</a></p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="kicker">Questions</span>
-        <h2>Common <span class="accent-i">Questions</span></h2>
-        <p class="lede">Straight answers to what Australian brands ask us most.</p>
-      </div>
-      <div class="faq-list">
-        <details class="faq-item reveal" open><summary>Do you buy our stock?</summary><div class="faq-a"><p>No. We work on consignment: your stock stays yours until it is sold in Japan. Rather than buying it, we represent and sell it on your behalf.</p></div></details>
-        <details class="faq-item reveal"><summary>What does it cost?</summary><div class="faq-a"><p>A fee for storage, handling and representation, plus a commission on sales. Terms are agreed individually with each brand, and we are happy to prepare an indicative proposal after a first conversation.</p></div></details>
-        <details class="faq-item reveal"><summary>Who pays for freight and import costs?</summary><div class="faq-a"><p>Your brand does. Import and cost arrangements are confirmed for each brand before anything ships.</p></div></details>
-        <details class="faq-item reveal"><summary>Who imports the product into Japan?</summary><div class="faq-a"><p>Your goods are cleared through Japanese customs by an importer we arrange. Your stock is then stored in Nagoya. Import and cost arrangements are confirmed for each brand before anything ships.</p></div></details>
-        <details class="faq-item reveal"><summary>Do we need to send a full container?</summary><div class="faq-a"><p>No. We usually suggest a smaller first shipment to test the market, then larger volumes on an agreed schedule as sales build.</p></div></details>
-        <details class="faq-item reveal"><summary>Does our packaging need Japanese labels?</summary><div class="faq-a"><p>Yes. Products sold in Japan need Japanese labelling. We will guide you on what your product needs before anything ships.</p></div></details>
-        <details class="faq-item reveal"><summary>How long does it take to see sales?</summary><div class="faq-a"><p>Japan rewards patience. The first months usually go on paperwork, labelling and pricing, followed by tastings with buyers. Regular orders take time to build, and no one can guarantee results.</p></div></details>
-        <details class="faq-item reveal"><summary>Where in Japan do you start?</summary><div class="faq-a"><p>In Nagoya. We introduce your products to bars, restaurants and shops there first, and look to other cities as demand for your brand grows.</p></div></details>
-        <details class="faq-item reveal"><summary>What happens on the free consultation?</summary><div class="faq-a"><p>It is a 15-minute call. We will ask about your products, pricing and volumes, and give you an honest view of whether Japan suits your brand. There is no obligation.</p></div></details>
+        <h2 class="x-fill" id="fill">A Partnership, <span class="accent-i">Not a Purchase</span></h2>
+        <p class="lede" id="modelLede" style="margin-top:22px;opacity:0">We work on consignment, with terms agreed individually with each brand.</p>
+        <div class="x-points" id="points">
+          <div class="step"><h3>Your stock, your ownership</h3><p>Your products remain yours until they are sold in Japan.</p></div>
+          <div class="step"><h3>Sold on your behalf</h3><p>Rather than buying your stock, we represent and sell it for you.</p></div>
+          <div class="step"><h3>Storage &amp; representation</h3><p>A fee covers storage, handling and ongoing representation in Japan.</p></div>
+          <div class="step"><h3>Commission on sales</h3><p>We earn a commission on sales, so our interests are aligned with yours.</p></div>
+        </div>
+        <p style="margin-top:34px"><a class="text-link" href="services.html#model">Read more about how we work</a></p>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section id="contact" class="on-dark cta">
-    <div class="hero-bg"><picture><source srcset="assets/cta-ship-poster-v7.webp"><img src="assets/cta.webp" srcset="assets/cta-800.webp 800w, assets/cta.webp 1344w" sizes="100vw" width="1344" height="768" alt="" loading="lazy"></picture><video class="bg-video" data-src="assets/cta-ship-loop-v7.mp4" loop muted playsinline preload="none" aria-hidden="true"></video></div>
-    <div class="wrap" style="position:relative">
-      <span class="kicker" style="justify-content:center">Start the Conversation</span>
-      <h2>Ready to Bridge the Gap Between <span class="accent-i">Australia and Japan?</span></h2>
-      <p class="lede">Book a free consultation and we'll talk through whether Japan is the right next step for your brand.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a>
-        <a class="btn btn-ghost" href="contact.html">Send an enquiry</a>
+  <!-- 7. FAQ: pinned panel + numbered, grouped questions that slide open -->
+  <section id="faq" class="x-faq">
+    <div class="wrap x-faq-grid">
+      <aside class="x-faq-side">
+        <div class="x-faq-panel">
+          <span class="kicker">Questions</span>
+          <h2>Common <span class="accent-i">Questions</span></h2>
+          <p class="lede">Straight answers to what Australian brands ask us most.</p>
+          <a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a>
+          <p class="x-faq-mail">Or email <a href="mailto:hello@aussiebridgejapan.com">hello@aussiebridgejapan.com</a></p>
+        </div>
+      </aside>
+      <div class="x-faq-body">
+        <p class="x-faq-group">Cost &amp; ownership</p>
+        <details class="x-q" open><summary><span class="qn">01</span><span class="qt">Do you buy our stock?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>No. We work on consignment: your stock stays yours until it is sold in Japan. Rather than buying it, we represent and sell it on your behalf.</p></div></details>
+        <details class="x-q"><summary><span class="qn">02</span><span class="qt">What does it cost?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>A fee for storage, handling and representation, plus a commission on sales. Terms are agreed individually with each brand, and we are happy to prepare an indicative proposal after a first conversation.</p></div></details>
+        <details class="x-q"><summary><span class="qn">03</span><span class="qt">Who pays for freight and import costs?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>Your brand does. Import and cost arrangements are confirmed for each brand before anything ships.</p></div></details>
+
+        <p class="x-faq-group">Shipping &amp; Japan</p>
+        <details class="x-q"><summary><span class="qn">04</span><span class="qt">Who imports the product into Japan?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>Your goods are cleared through Japanese customs by an importer we arrange. Your stock is then stored in Nagoya. Import and cost arrangements are confirmed for each brand before anything ships.</p></div></details>
+        <details class="x-q"><summary><span class="qn">05</span><span class="qt">Do we need to send a full container?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>No. We usually suggest a smaller first shipment to test the market, then larger volumes on an agreed schedule as sales build.</p></div></details>
+        <details class="x-q"><summary><span class="qn">06</span><span class="qt">Does our packaging need Japanese labels?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>Yes. Products sold in Japan need Japanese labelling. We will guide you on what your product needs before anything ships.</p></div></details>
+
+        <p class="x-faq-group">Getting started</p>
+        <details class="x-q"><summary><span class="qn">07</span><span class="qt">How long does it take to see sales?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>Japan rewards patience. The first months usually go on paperwork, labelling and pricing, followed by tastings with buyers. Regular orders take time to build, and no one can guarantee results.</p></div></details>
+        <details class="x-q"><summary><span class="qn">08</span><span class="qt">Where in Japan do you start?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>In Nagoya. We introduce your products to bars, restaurants and shops there first, and look to other cities as demand for your brand grows.</p></div></details>
+        <details class="x-q"><summary><span class="qn">09</span><span class="qt">What happens on the free consultation?</span><span class="qi" aria-hidden="true"></span></summary><div class="qa"><p>It is a 15-minute call. We will ask about your products, pricing and volumes, and give you an honest view of whether Japan suits your brand. There is no obligation.</p></div></details>
+
+        <div class="x-faq-more">
+          <p><strong>Didn't see your question?</strong> Email <a href="mailto:hello@aussiebridgejapan.com">hello@aussiebridgejapan.com</a> or book a call.</p>
+          <a class="btn btn-dark" href="book-consultation.html">Book a call</a>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 8. CTA: the ship sails as you scroll -->
+  <section id="x-cta" class="x-pin" aria-label="Start the conversation">
+    <div class="x-stage">
+      <div class="x-veil"></div>
+      <video class="x-poster x-vid" id="shipVid" src="assets/cta-ship-loop-v7.mp4" poster="assets/cta-ship-poster-v7.webp" loop muted playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="x-shade" style="opacity:.36"></div>
+      <div class="copy" id="ctaCopy">
+        <span class="kicker">Start the Conversation</span>
+        <h2 id="ctaH">Ready to Bridge the Gap Between <span class="accent-i">Australia and Japan?</span></h2>
+        <p class="lede" id="ctaLede" style="opacity:0">Book a free consultation and we'll talk through whether Japan is the right next step for your brand.</p>
+        <div class="hero-ctas" id="ctaBtns" style="opacity:0">
+          <a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a>
+          <a class="btn btn-ghost" href="contact.html">Send an enquiry</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- gold ticker: drifts sideways as you scroll -->
+  <section class="x-ticker" aria-hidden="true">
+    <div class="x-tick-track" id="tick">
+      <span>Australia</span><i>→</i><em>Japan</em><i>·</i><span>Aussie Bridge Japan</span><i>·</i>
+      <span>Australia</span><i>→</i><em>Japan</em><i>·</i><span>Aussie Bridge Japan</span><i>·</i>
+      <span>Australia</span><i>→</i><em>Japan</em><i>·</i><span>Aussie Bridge Japan</span><i>·</i>
+      <span>Australia</span><i>→</i><em>Japan</em><i>·</i><span>Aussie Bridge Japan</span><i>·</i>
     </div>
   </section>
 
@@ -378,6 +663,228 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=1447b94"></script>
+<script src="assets/site.js?v=2ab8986"></script>
+<script>
+(function(){
+  'use strict';
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v};
+  var seg=function(p,a,b){return clamp((p-a)/(b-a),0,1)};
+  var ease=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+  var easeOut=function(t){return 1-Math.pow(1-t,3)};
+  var lerp=function(a,b,t){return a+(b-a)*t};
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* split a heading into masked words (keeps <span class="accent-i"> styling) */
+  function splitWords(el){
+    var nodes=Array.prototype.slice.call(el.childNodes); el.innerHTML='';
+    nodes.forEach(function(n){
+      n.textContent.split(/(\s+)/).forEach(function(wd){
+        if(!wd) return;
+        if(/^\s+$/.test(wd)){ el.appendChild(document.createTextNode(' ')); return; }
+        var w=document.createElement('span'); w.className='w';
+        var inner=document.createElement('span');
+        if(n.nodeType===1){ var e=n.cloneNode(false); e.textContent=wd; inner.appendChild(e); } else inner.textContent=wd;
+        w.appendChild(inner); el.appendChild(w);
+      });
+    });
+    return $$('.w>span',el);
+  }
+
+  /* smoothed progress through a pinned section */
+  function Driver(sec,render){ this.sec=sec; this.render=render; this.t=0; this.c=0; this.run=false; this.force=true; this.near=false; }
+  Driver.prototype.measure=function(){
+    var r=this.sec.getBoundingClientRect(), total=Math.max(1,r.height-window.innerHeight);
+    this.t=clamp(-r.top/total,0,1); this.near=r.top<window.innerHeight*1.6 && r.bottom>-window.innerHeight*.6;
+  };
+  Driver.prototype.kick=function(){ if(this.run) return; this.run=true; this.last=performance.now(); requestAnimationFrame(this.tick.bind(this)); };
+  Driver.prototype.tick=function(now){
+    var dt=Math.min(64,now-this.last); this.last=now;
+    var k=reduce?1:1-Math.exp(-dt/110), prev=this.c;
+    this.c=lerp(this.c,this.t,k); if(Math.abs(this.t-this.c)<.00005) this.c=this.t;
+    if(this.c!==prev||this.force){ this.force=false; this.render(this.c); }
+    if(this.c!==this.t||this.force) requestAnimationFrame(this.tick.bind(this)); else this.run=false;
+  };
+
+  /* ---------- 1. hero ---------- */
+  var heroSec=$('#x-hero'), heroCopy=$('#heroCopy'), heroShade=$('#heroShade'), cue=$('.x-cue',heroSec), heroVid=$('#heroVid');
+  var heroWords=splitWords($('h1',heroCopy));
+  heroWords.forEach(function(w,i){ w.style.transitionDelay=(.08+i*.05)+'s'; });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ heroCopy.classList.add('x-in'); }); });
+  var dHero=new Driver(heroSec,function(p){
+    heroVid.style.transform='scale('+(1.02+.1*p)+')';
+    heroShade.style.opacity=.3-.06*seg(p,.05,.35)+.34*seg(p,.7,1);
+    var o=1-ease(seg(p,.3,.78));
+    heroCopy.style.opacity=o; heroCopy.style.transform='translateY('+(-ease(seg(p,.15,.9))*10)+'vh)';
+    cue.style.opacity=1-seg(p,0,.08);
+  });
+
+  /* ---------- 2. headline opens onto the image ---------- */
+  var brk=$('#x-break'), bImg=$('#breakImg'), bL1=$('#breakL1'), bL2=$('#breakL2'), bK=$('#breakK'), bOver=$('#breakOver'), bShade=$('#breakShade');
+  var dBreak=new Driver(brk,function(p){
+    var vw=window.innerWidth, vh=window.innerHeight;
+    var g=ease(seg(p,.02,.5));
+    var w0=Math.min(vw*.34,440), h0=Math.min(vh*.28,260);          // starting window between the two lines
+    var w=lerp(w0,vw,g), h=lerp(h0,vh,g), ix=(vw-w)/2, iy=(vh-h)/2, rad=lerp(22,0,g);
+    bImg.style.clipPath='inset('+iy+'px '+ix+'px '+iy+'px '+ix+'px round '+rad+'px)';
+    bImg.style.transform='scale('+(1.18-.18*g)+')';
+    var push=g*(vh*.5);
+    bL1.style.transform='translateY('+(-push)+'px)'; bL2.style.transform='translateY('+push+'px)';
+    bL1.style.opacity=bL2.style.opacity=1-seg(p,.3,.5);
+    bK.style.opacity=1-seg(p,.05,.25);
+    bShade.style.opacity=.62*seg(p,.48,.6);
+    var o=easeOut(seg(p,.55,.68));
+    bOver.style.opacity=o; bOver.style.transform='translateY('+((1-o)*30)+'px)';
+    bOver.style.pointerEvents=o>.5?'auto':'none';
+  });
+
+  /* ---------- 3. services sticky split (driven by what's in view) ---------- */
+  var svcPhotos=$$('.x-svc-photos img'), toc=$$('#svcToc li'), faces=$$('.x-svc-face'), items=$$('.x-svc-item'), bar=$('#svcBar'), count=$('#svcCount'), list=$('.x-svc-list'), curSvc=-1;
+  var svcT=0, svcC=0, svcRun=false, svcLast=0;
+  function setSvc(i){
+    if(i===curSvc) return;
+    faces.forEach(function(f,k){ f.classList.toggle('was',k<i); f.classList.toggle('on',k===i); });
+    toc.forEach(function(li,k){ li.classList.toggle('on',k===i); li.classList.toggle('done',k<i); });
+    svcPhotos.forEach(function(im,k){ im.classList.toggle('on',k===i); });
+    curSvc=i; count.textContent='0'+(i+1)+' / 0'+faces.length;
+  }
+  setSvc(0);
+  // progress through the list: 0 when the first item's centre reaches mid-screen, 1 when the last one does
+  function svcMeasure(){
+    var mid=window.innerHeight*.5, a=items[0].getBoundingClientRect(), b=items[items.length-1].getBoundingClientRect();
+    var c0=a.top+a.height/2, c1=b.top+b.height/2;
+    svcT=clamp((mid-c0)/Math.max(1,c1-c0),0,1);
+  }
+  function svcRender(){
+    var n=items.length, pos=svcC*(n-1);
+    // active face changes at the halfway point between items, with a small dead zone so it can't flicker
+    var i=Math.round(pos); if(Math.abs(pos-curSvc)<.62) i=curSvc;
+    setSvc(clamp(i,0,n-1));
+    bar.style.transform='scaleX('+(.02+.98*svcC)+')';
+    if(window.innerWidth>680) items.forEach(function(it,k){ var d=Math.abs(pos-k); it.style.opacity=(.2+.8*clamp(1-d*1.15,0,1)).toFixed(3); });
+  }
+  function svcTick(now){
+    var dt=Math.min(64,now-svcLast); svcLast=now;
+    svcC=lerp(svcC,svcT,reduce?1:1-Math.exp(-dt/110)); if(Math.abs(svcT-svcC)<.0002) svcC=svcT;
+    svcRender();
+    if(svcC!==svcT) requestAnimationFrame(svcTick); else svcRun=false;
+  }
+  function svcScroll(){
+    var r=list.getBoundingClientRect(); if(r.bottom<-200||r.top>window.innerHeight+200) return;
+    svcMeasure(); if(!svcRun){ svcRun=true; svcLast=performance.now(); requestAnimationFrame(svcTick); }
+  }
+
+  /* ---------- 4. sideways journey ---------- */
+  var strip=$('#x-strip'), track=$('#track'), panels=$$('.x-panel img',strip), words=$$('#stripWords span'), dots=$$('#dots b'), curW=-1;
+  var dStrip=new Driver(strip,function(p){
+    var q=ease(seg(p,.06,.94));
+    track.style.transform='translate3d('+(-q*2*window.innerWidth)+'px,0,0)';
+    panels.forEach(function(im,i){ im.style.transform='translateX('+((q*2-i)*18)+'vw) translateY('+(i===0?-5.5:0)+'%) scale(1.12)'; });   // parallax inside each panel; the can is lifted so its logo clears the caption
+    var idx=Math.round(q*2);
+    if(idx!==curW){ curW=idx; words.forEach(function(s,i){s.classList.toggle('on',i<=idx);}); dots.forEach(function(d,i){d.classList.toggle('on',i===idx);}); }
+  });
+
+  /* ---------- 5. process: the gold line draws as you go ---------- */
+  var path=$('#path'), pLine=$('#pathLine'), steps=$$('.x-step',path);
+  function pathScroll(){
+    var r=path.getBoundingClientRect(), vh=window.innerHeight;
+    var t=clamp((vh*.62-r.top)/r.height,0,1);
+    pLine.style.transform='scaleY('+t+')';
+    steps.forEach(function(s){ var sr=s.getBoundingClientRect(); s.classList.toggle('on', sr.top<vh*.68); });
+  }
+
+  /* ---------- 6. model: the statement fills in ---------- */
+  var model=$('#x-model'), fillWords=$$('.w>span',(function(){ splitWords($('#fill')); return $('#fill'); })()), lede=$('#modelLede'), pts=$$('#points .step');
+  $$('#fill .w').forEach(function(w){ w.style.overflow='visible'; });
+  var dModel=new Driver(model,function(p){
+    var n=fillWords.length;
+    fillWords.forEach(function(w,i){ var a=seg(p,.04+i*(.3/n),.04+(i+1)*(.3/n)); w.style.opacity=.14+.86*a; });
+    var l=easeOut(seg(p,.32,.42)); lede.style.opacity=l;
+    pts.forEach(function(s,i){ var o=easeOut(seg(p,.38+i*.05,.5+i*.05)); s.style.opacity=o; s.style.transform='translateY('+((1-o)*20)+'px)'; });
+  });
+
+  /* ---------- 8. CTA: the ship sails as you scroll ---------- */
+  var cta=$('#x-cta'), shipVid=$('#shipVid'), ctaWords=splitWords($('#ctaH')), cLede=$('#ctaLede'), cBtns=$('#ctaBtns');
+  var dCta=new Driver(cta,function(p){
+    shipVid.style.transform='scale('+(1.1-.08*p)+')';
+    var a=seg(p,.04,.34), n=ctaWords.length;
+    ctaWords.forEach(function(w,i){ var t=easeOut(clamp((a-i*(.5/n))/.5,0,1)); w.style.transform='translateY('+((1-t)*110)+'%)'; });
+    cLede.style.opacity=easeOut(seg(p,.28,.42)); cBtns.style.opacity=easeOut(seg(p,.36,.5));
+  });
+
+  /* ---------- 7. FAQ: smooth open/close, one open at a time ---------- */
+  var qs=$$('.x-q');
+  function animateQ(q,open){
+    var a=q.querySelector('.qa');
+    // stop anything in flight, so rapid clicks can never leave a question half-open or an icon stuck
+    var fromH=q.open?a.offsetHeight:0;
+    if(q._anim){ q._anim.onfinish=null; q._anim.cancel(); q._anim=null; }
+    clearTimeout(q._t); q.classList.remove('opening','closing');
+    if(reduce||!a.animate){ q.open=open; return; }
+    var dur=open?420:300;
+    function done(){
+      clearTimeout(q._t);
+      if(!open) q.open=false;                               // hide first, then drop the held "0 height" frame
+      if(q._anim){ q._anim.onfinish=null; q._anim.cancel(); q._anim=null; }
+      q.classList.remove('opening','closing');
+    }
+    if(open){
+      q.classList.add('opening'); q.open=true;
+      q._anim=a.animate([{height:fromH+'px',opacity:fromH?1:0},{height:a.scrollHeight+'px',opacity:1}],{duration:dur,easing:'cubic-bezier(.16,1,.3,1)'});
+    } else {
+      q.classList.add('closing');
+      q._anim=a.animate([{height:fromH+'px',opacity:1},{height:'0px',opacity:0}],{duration:dur,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+    }
+    q._anim.onfinish=done;
+    q._t=setTimeout(done,dur+80);          // backstop in case the browser skips the finish event
+  }
+  qs.forEach(function(q){
+    q.querySelector('summary').addEventListener('click',function(e){
+      e.preventDefault();
+      var willOpen=!q.open||q.classList.contains('closing');
+      if(willOpen){ qs.forEach(function(o){ if(o!==q && (o.open||o.classList.contains('opening')) && !o.classList.contains('closing')) animateQ(o,false); }); }
+      animateQ(q,willOpen);
+    });
+  });
+
+  /* ---------- wiring ---------- */
+  var drivers=[dHero,dBreak,dStrip,dModel,dCta];
+  [[dHero,0,1],[dBreak,0,1],[dStrip,1,1],[dModel,1,1],[dCta,1,0]].forEach(function(c){
+    var d=c[0], draw=d.render, v=$('.x-veil',d.sec);
+    d.render=function(p){
+      draw(p);
+      var top=d.sec.getBoundingClientRect().top, inT=clamp(1-top/window.innerHeight,0,1);
+      v.style.opacity=Math.max(c[1]?1-ease(inT):0, c[2]?ease(seg(p,.86,1)):0).toFixed(3);
+    };
+  });
+  function onScroll(){
+    drivers.forEach(function(d){ d.measure(); if(d.near){ d.force=true; d.kick(); } });   // force: veils also move while a section scrolls in
+    svcScroll(); pathScroll(); tickScroll();
+  }
+  // ticker: half the track is one full repeat, so wrapping at that point is seamless
+  var tick=$('#tick'), tickBox=tick.parentNode;
+  function tickScroll(){
+    var r=tickBox.getBoundingClientRect(); if(r.bottom<-50||r.top>window.innerHeight+50) return;
+    var half=tick.scrollWidth/2, x=(window.scrollY*.35)%half;
+    tick.style.transform='translate3d('+(-x)+'px,0,0)';
+  }
+  function onResize(){ drivers.forEach(function(d){d.force=true;}); onScroll(); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onResize);
+  // videos loop on their own; pause them off screen to save battery, and never autoplay for reduced motion
+  var vids=$$('.x-vid');
+  if(reduce){ vids.forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); }); }
+  else if('IntersectionObserver' in window){
+    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){
+      var v=e.target;
+      if(e.isIntersecting){ if(v.preload!=='auto') v.preload='auto'; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+      else v.pause();
+    }); },{rootMargin:'200px 0px'});
+    vids.forEach(function(v){ vio.observe(v); });
+  }
+  onScroll(); drivers.forEach(function(d){ d.force=true; d.kick(); });
+})();
+</script>
 </body>
 </html>
