@@ -23,7 +23,67 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=2ab8986">
+<link rel="stylesheet" href="assets/site.css?v=189a4d9">
+<style>
+/* ---- Services page: homepage look, lighter motion ---- */
+.page-hero .ph-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;filter:saturate(.85)}
+.page-hero .ph-fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,17,40,.9),rgba(10,17,40,.55) 60%,rgba(10,17,40,.35))}
+.page-hero .wrap{position:relative;z-index:1}
+
+/* sticky photo panel beside the six services */
+.x-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.x-svc-pin{position:sticky;top:76px;height:calc(100vh - 76px);height:calc(100svh - 76px);display:grid;place-items:center}
+.x-svc-panel{position:relative;width:100%;aspect-ratio:4/5;max-height:78vh;border-radius:28px;background:var(--navy);color:#fff;overflow:hidden;--gold:var(--gold-bright)}
+.x-svc-photos{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:inherit}
+.x-svc-photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);filter:saturate(.9);
+  transition:opacity 1s ease,transform 6s cubic-bezier(.2,.6,.2,1)}
+.x-svc-photos img.on{opacity:.55;transform:scale(1)}
+.x-svc-photos::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,17,40,.12),rgba(10,17,40,.4) 45%,rgba(10,17,40,.88) 80%)}
+.x-svc-face{position:absolute;inset:0;z-index:1;padding:clamp(28px,4vw,48px);opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .3s ease;pointer-events:none}
+.x-svc-face.on{opacity:1;transform:none;transition:opacity .5s ease .18s,transform .7s cubic-bezier(.16,1,.3,1) .18s}
+.x-svc-face.was{transform:translateY(-10px)}
+.x-svc-face .n{font-family:var(--serif);font-size:clamp(110px,14vw,200px);line-height:.8;color:var(--gold-bright)}
+.x-svc-toc{position:absolute;z-index:1;left:clamp(28px,4vw,48px);right:clamp(28px,4vw,48px);bottom:clamp(30px,4vw,48px);list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.x-svc-toc li{font-family:var(--serif);font-size:clamp(18px,1.5vw,22px);color:rgba(255,255,255,.32);display:flex;align-items:center;gap:12px;transition:color .4s ease}
+.x-svc-toc li::before{content:"";width:0;height:1px;background:var(--gold-bright);transition:width .45s cubic-bezier(.16,1,.3,1)}
+.x-svc-toc li.on{color:#fff}
+.x-svc-toc li.on::before{width:26px}
+.x-svc-toc li.done{color:rgba(255,255,255,.55)}
+.x-svc-count{position:absolute;z-index:1;right:clamp(28px,4vw,48px);top:clamp(28px,4vw,48px);font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.55)}
+.x-svc-bar{position:absolute;z-index:1;left:0;bottom:0;height:3px;width:100%;background:var(--gold-bright);transform-origin:0 50%;transform:scaleX(0)}
+.x-svc-list{padding:10vh 0}
+.x-svc-item{min-height:52vh;display:flex;flex-direction:column;justify-content:center;opacity:.22;will-change:opacity}
+.x-svc-item .num-sm{display:none;font-family:var(--serif);font-size:44px;color:var(--gold-ink)}
+.x-svc-item h3{font-size:clamp(32px,3.4vw,48px);margin-bottom:14px}
+.x-svc-item p{font-size:17px;color:rgba(26,26,26,.7);max-width:46ch}
+.x-svc-item .checklist{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);position:relative}
+.x-svc-item .checklist::before{content:"";position:absolute;left:0;top:-1px;width:48px;height:2px;background:var(--gold-bright)}
+@media (max-height:780px){ .x-svc-face .n{font-size:min(14vw,17vh)} .x-svc-toc{gap:3px} .x-svc-toc li{font-size:17px} }
+@media (max-width:1000px){ .x-split{gap:32px} .x-svc-toc li{font-size:16px} }
+
+/* full-width booking buttons, as on the homepage */
+.btn.x-wide{display:flex;width:100%;padding:20px 32px;font-size:16px}
+.cta-band .cta-actions{max-width:760px;margin:0 auto;flex-direction:column;align-items:stretch}
+.cta-band .cta-actions .btn{display:flex;width:100%;padding:20px 32px;font-size:16px}
+
+/* "A Partnership, Not a Purchase" fills in as you scroll past */
+.w{display:inline-block;vertical-align:bottom}
+.x-fill .w>span{display:inline-block;opacity:.16;transition:opacity .2s linear}
+
+@media (max-width:680px){
+  .x-split{grid-template-columns:1fr;gap:0}
+  .x-svc-pin{display:none}
+  .x-svc-list{padding:2vh 0}
+  .x-svc-item{min-height:auto;padding:34px 0;opacity:1!important;display:grid;grid-template-columns:58px 1fr;column-gap:14px;align-items:start;border-top:1px solid var(--line);position:relative}
+  .x-svc-item::before{content:"";position:absolute;left:0;top:-1px;width:58px;height:2px;background:var(--gold-bright)}
+  .x-svc-item .num-sm{display:block;grid-row:1/4;font-size:46px;line-height:.82;font-weight:500}
+  .x-svc-item h3,.x-svc-item p,.x-svc-item .checklist{grid-column:2}
+  .x-svc-item h3{font-size:28px;margin-bottom:10px}
+  .x-svc-item p{font-size:16px}
+  .x-svc-item .checklist{border-top:0;padding-top:4px}
+  .x-svc-item .checklist::before{display:none}
+}
+</style>
 </head>
 <body>
 
@@ -48,6 +108,8 @@
 
 <main>
   <div class="page-hero">
+    <img class="ph-photo" src="assets/svc/brand.webp" alt="" aria-hidden="true">
+    <div class="ph-fade"></div>
     <div class="wrap">
       <span class="kicker">Our Services</span>
       <h1>What We Do for <span class="accent-i">Your Brand in Japan</span></h1>
@@ -57,104 +119,93 @@
 
   <section style="padding-top:40px">
     <div class="wrap">
-
-      <div class="svc reveal">
-        <div>
-          <span class="n">01</span>
-          <h3>Brand Representation</h3>
-          <p>Act as the official Japanese representative for your brand, managing all local relationships and strategic positioning.</p>
+      <div class="x-split">
+        <div class="x-svc-pin">
+          <div class="x-svc-panel">
+            <div class="x-svc-photos" aria-hidden="true"><img src="assets/svc/brand.webp" alt="" loading="lazy"><img src="assets/svc/compliance.webp" alt="" loading="lazy"><img src="assets/svc/import.webp" alt="" loading="lazy"><img src="assets/svc/market.webp" alt="" loading="lazy"><img src="assets/svc/retail.webp" alt="" loading="lazy"><img src="assets/svc/hospitality.webp" alt="" loading="lazy"></div>
+            <div class="x-svc-face"><span class="n">01</span></div>
+            <div class="x-svc-face"><span class="n">02</span></div>
+            <div class="x-svc-face"><span class="n">03</span></div>
+            <div class="x-svc-face"><span class="n">04</span></div>
+            <div class="x-svc-face"><span class="n">05</span></div>
+            <div class="x-svc-face"><span class="n">06</span></div>
+            <span class="x-svc-count" id="svcCount">01 / 06</span>
+            <ol class="x-svc-toc" id="svcToc"><li>Brand Representation</li><li>Compliance Coordination</li><li>Import &amp; Storage</li><li>Market Entry Strategy</li><li>Retail</li><li>Hospitality</li></ol>
+            <div class="x-svc-bar" id="svcBar"></div>
+          </div>
         </div>
-        <div>
-          <ul class="checklist">
-            <li>Brand positioning for Japanese consumers</li>
-            <li>Local brand management</li>
-            <li>Trade show representation</li>
-            <li>PR &amp; media coordination</li>
-          </ul>
+
+        <div class="x-svc-list">
+          <div class="x-svc-item">
+            <span class="num-sm">01</span>
+            <h3>Brand Representation</h3>
+            <p>Act as the official Japanese representative for your brand, managing all local relationships and strategic positioning.</p>
+            <ul class="checklist">
+              <li>Brand positioning for Japanese consumers</li>
+              <li>Local brand management</li>
+              <li>Trade show representation</li>
+              <li>PR &amp; media coordination</li>
+            </ul>
+          </div>
+          <div class="x-svc-item">
+            <span class="num-sm">02</span>
+            <h3>Compliance Coordination</h3>
+            <p>We coordinate all regulatory compliance and documentation for seamless entry into Japan. We help you prepare Japanese labelling before anything ships.</p>
+            <ul class="checklist">
+              <li>Regulatory compliance &amp; documentation</li>
+              <li>Help preparing Japanese labelling before anything ships</li>
+              <li>Quarantine &amp; food safety guidance</li>
+              <li>Cold chain logistics coordination</li>
+            </ul>
+          </div>
+          <div class="x-svc-item">
+            <span class="num-sm">03</span>
+            <h3>Import &amp; Storage</h3>
+            <p>We start in Nagoya. Your stock is imported and stored in Japan, and we introduce it to venues and shops there first. Import and storage details are confirmed per brand.</p>
+            <ul class="checklist">
+              <li>Freight forwarder and customs broker organised for you</li>
+              <li>Stock stored in Japan, starting in Nagoya</li>
+              <li>Delivery to the venues and shops that order</li>
+              <li>Other cities as demand for your brand grows</li>
+            </ul>
+          </div>
+          <div class="x-svc-item">
+            <span class="num-sm">04</span>
+            <h3>Market Entry Strategy</h3>
+            <p>Launch planning, competitive analysis, and long-term growth consulting tailored to the Japanese market.</p>
+            <ul class="checklist">
+              <li>Market research &amp; feasibility</li>
+              <li>Competitive analysis</li>
+              <li>Pricing strategy for Japan</li>
+              <li>Growth roadmap development</li>
+            </ul>
+          </div>
+          <div class="x-svc-item">
+            <span class="num-sm">05</span>
+            <h3>Retail</h3>
+            <p>Pitch for shelf space with specialty retailers, supermarkets and department store food halls.</p>
+            <ul class="checklist">
+              <li>Department store food halls (Depachika)</li>
+              <li>Supermarket chains</li>
+              <li>Specialty importers</li>
+              <li>Online retail platforms</li>
+            </ul>
+          </div>
+          <div class="x-svc-item">
+            <span class="num-sm">06</span>
+            <h3>Hospitality</h3>
+            <p>Introduce your products to bars, restaurants and hotels, starting in Nagoya.</p>
+            <ul class="checklist">
+              <li>High-end bars &amp; cocktail lounges</li>
+              <li>Premium restaurants</li>
+              <li>International hotel chains</li>
+              <li>Private members clubs</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="svc reveal">
-        <div>
-          <span class="n">02</span>
-          <h3>Compliance Coordination</h3>
-          <p>We coordinate all regulatory compliance and documentation for seamless entry into Japan. We help you prepare Japanese labelling before anything ships.</p>
-        </div>
-        <div>
-          <ul class="checklist">
-            <li>Regulatory compliance &amp; documentation</li>
-            <li>Help preparing Japanese labelling before anything ships</li>
-            <li>Quarantine &amp; food safety guidance</li>
-            <li>Cold chain logistics coordination</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="svc reveal">
-        <div>
-          <span class="n">03</span>
-          <h3>Import &amp; Storage</h3>
-          <p>We start in Nagoya. Your stock is imported and stored in Japan, and we introduce it to venues and shops there first. Import and storage details are confirmed per brand.</p>
-        </div>
-        <div>
-          <ul class="checklist">
-            <li>Freight forwarder and customs broker organised for you</li>
-            <li>Stock stored in Japan, starting in Nagoya</li>
-            <li>Delivery to the venues and shops that order</li>
-            <li>Other cities as demand for your brand grows</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="svc reveal">
-        <div>
-          <span class="n">04</span>
-          <h3>Market Entry Strategy</h3>
-          <p>Launch planning, competitive analysis, and long-term growth consulting tailored to the Japanese market.</p>
-        </div>
-        <div>
-          <ul class="checklist">
-            <li>Market research &amp; feasibility</li>
-            <li>Competitive analysis</li>
-            <li>Pricing strategy for Japan</li>
-            <li>Growth roadmap development</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="svc reveal">
-        <div>
-          <span class="n">05</span>
-          <h3>Retail</h3>
-          <p>Pitch for shelf space with specialty retailers, supermarkets and department store food halls.</p>
-        </div>
-        <div>
-          <ul class="checklist">
-            <li>Department store food halls (Depachika)</li>
-            <li>Supermarket chains</li>
-            <li>Specialty importers</li>
-            <li>Online retail platforms</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="svc reveal">
-        <div>
-          <span class="n">06</span>
-          <h3>Hospitality</h3>
-          <p>Introduce your products to bars, restaurants and hotels, starting in Nagoya.</p>
-        </div>
-        <div>
-          <ul class="checklist">
-            <li>High-end bars &amp; cocktail lounges</li>
-            <li>Premium restaurants</li>
-            <li>International hotel chains</li>
-            <li>Private members clubs</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:48px"><a class="btn btn-gold" href="book-consultation.html">Book a free consultation</a></div>
+      <div class="reveal" style="margin-top:40px"><a class="btn btn-gold x-wide" href="book-consultation.html">Book a free consultation</a></div>
     </div>
   </section>
 
@@ -162,7 +213,7 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="kicker">Our Commercial Model</span>
-        <h2>A Partnership, <span class="accent-i">Not a Purchase</span></h2>
+        <h2 class="x-fill" id="fill">A Partnership, <span class="accent-i">Not a Purchase</span></h2>
         <p class="lede">We work on consignment. Your stock remains yours until it is sold in Japan; rather than buying it, we represent and sell it on your behalf.</p>
         <p class="lede" style="margin-top:16px">Our fees combine a charge for storage, handling and representation with a commission on sales. Terms are agreed individually with each brand.</p>
       </div>
@@ -237,6 +288,77 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=2ab8986"></script>
+<script src="assets/site.js?v=189a4d9"></script>
+<script>
+(function(){
+  'use strict';
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v};
+  var lerp=function(a,b,t){return a+(b-a)*t};
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* services panel: photo, number and contents list follow the service in the middle of the screen */
+  var photos=$$('.x-svc-photos img'), toc=$$('#svcToc li'), faces=$$('.x-svc-face'), items=$$('.x-svc-item'),
+      bar=$('#svcBar'), count=$('#svcCount'), list=$('.x-svc-list'), cur=-1, T=0, C=0, running=false, last=0;
+  function setSvc(i){
+    if(i===cur) return;
+    faces.forEach(function(f,k){ f.classList.toggle('was',k<i); f.classList.toggle('on',k===i); });
+    toc.forEach(function(li,k){ li.classList.toggle('on',k===i); li.classList.toggle('done',k<i); });
+    photos.forEach(function(im,k){ im.classList.toggle('on',k===i); });
+    cur=i; count.textContent='0'+(i+1)+' / 0'+faces.length;
+  }
+  setSvc(0);
+  function measure(){
+    var mid=window.innerHeight*.5, a=items[0].getBoundingClientRect(), b=items[items.length-1].getBoundingClientRect();
+    var c0=a.top+a.height/2, c1=b.top+b.height/2;
+    T=clamp((mid-c0)/Math.max(1,c1-c0),0,1);
+  }
+  function render(){
+    var n=items.length, pos=C*(n-1);
+    var i=Math.round(pos); if(Math.abs(pos-cur)<.62) i=cur;          // dead zone: no flicker between services
+    setSvc(clamp(i,0,n-1));
+    bar.style.transform='scaleX('+(.02+.98*C)+')';
+    if(window.innerWidth>680) items.forEach(function(it,k){ var d=Math.abs(pos-k); it.style.opacity=(.22+.78*clamp(1-d*1.15,0,1)).toFixed(3); });
+  }
+  function tick(now){
+    var dt=Math.min(64,now-last); last=now;
+    C=lerp(C,T,reduce?1:1-Math.exp(-dt/110)); if(Math.abs(T-C)<.0002) C=T;
+    render();
+    if(C!==T) requestAnimationFrame(tick); else running=false;
+  }
+  function svcScroll(){
+    var r=list.getBoundingClientRect(); if(r.bottom<-200||r.top>window.innerHeight+200) return;
+    measure(); if(!running){ running=true; last=performance.now(); requestAnimationFrame(tick); }
+  }
+
+  /* "A Partnership, Not a Purchase": words fill in as the heading moves up the screen (no pinning) */
+  var fill=$('#fill'), words=[];
+  (function split(el){
+    var nodes=Array.prototype.slice.call(el.childNodes); el.innerHTML='';
+    nodes.forEach(function(n){
+      n.textContent.split(/(\s+)/).forEach(function(wd){
+        if(!wd) return;
+        if(/^\s+$/.test(wd)){ el.appendChild(document.createTextNode(' ')); return; }
+        var w=document.createElement('span'); w.className='w';
+        var inner=document.createElement('span');
+        if(n.nodeType===1){ var e=n.cloneNode(false); e.textContent=wd; inner.appendChild(e); } else inner.textContent=wd;
+        w.appendChild(inner); el.appendChild(w); words.push(inner);
+      });
+    });
+  })(fill);
+  function fillScroll(){
+    var r=fill.getBoundingClientRect(), vh=window.innerHeight;
+    var t=clamp((vh*.9-r.top)/(vh*.5),0,1), n=words.length;           // starts near the bottom, complete by 40% up the screen
+    words.forEach(function(w,i){ w.style.opacity=(.16+.84*clamp(t*n-i,0,1)).toFixed(3); });
+  }
+
+  var ticking=false;
+  function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){ ticking=false; svcScroll(); fillScroll(); }); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+})();
+</script>
 </body>
 </html>
