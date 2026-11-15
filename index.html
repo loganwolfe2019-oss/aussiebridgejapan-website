@@ -126,7 +126,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=189a4d9">
+<link rel="stylesheet" href="assets/site.css?v=6496b21">
 <style>
 /* ---- scroll-format layer on top of site.css (same tokens: navy, gold, cream, Cormorant, Inter Tight) ---- */
 .x-pin{position:relative;padding:0!important}   /* site.css pads every section by 120px; pinned stages must sit edge to edge */
@@ -387,6 +387,20 @@
   .x-faq-more{padding:22px}
 }
 @media (prefers-reduced-motion:reduce){ .x-in .w>span,.x-in .x-fade{transition:none} }
+
+/* phones: the photo panel stays, pinned compactly under the menu, while the services scroll beneath it */
+@media (max-width:680px){
+  .x-split .x-svc-pin{display:block;position:sticky;top:76px;height:auto;z-index:5;background:var(--cream-2);margin:0 -24px;padding:10px 24px 14px}
+  .x-split .x-svc-panel{aspect-ratio:auto;height:clamp(180px,28vh,250px);max-height:none;border-radius:20px}
+  .x-split .x-svc-face{padding:18px 20px}
+  .x-split .x-svc-face .n{font-size:64px}
+  .x-split .x-svc-count{top:20px;right:20px}
+  .x-split .x-svc-toc{left:20px;right:20px;bottom:18px}
+  .x-split .x-svc-toc li{display:none}
+  .x-split .x-svc-toc li.on{display:flex;font-size:21px}
+  .x-split .x-svc-toc li.on::before{width:22px}
+  .x-split .x-svc-item{scroll-margin-top:330px}
+}
 </style>
 </head>
 <body>
@@ -663,7 +677,7 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=189a4d9"></script>
+<script src="assets/site.js?v=6496b21"></script>
 <script>
 (function(){
   'use strict';
@@ -752,7 +766,8 @@
   setSvc(0);
   // progress through the list: 0 when the first item's centre reaches mid-screen, 1 when the last one does
   function svcMeasure(){
-    var mid=window.innerHeight*.5, a=items[0].getBoundingClientRect(), b=items[items.length-1].getBoundingClientRect();
+    var pin=document.querySelector('.x-svc-pin'), pr=pin&&window.innerWidth<=680?pin.getBoundingClientRect():null;
+    var mid=pr?pr.bottom+(window.innerHeight-pr.bottom)*.42:window.innerHeight*.5, a=items[0].getBoundingClientRect(), b=items[items.length-1].getBoundingClientRect();
     var c0=a.top+a.height/2, c1=b.top+b.height/2;
     svcT=clamp((mid-c0)/Math.max(1,c1-c0),0,1);
   }
