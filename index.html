@@ -126,7 +126,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=c74ace7">
+<link rel="stylesheet" href="assets/site.css?v=10b3807">
 <style>
 /* ---- scroll-format layer on top of site.css (same tokens: navy, gold, cream, Cormorant, Inter Tight) ---- */
 .x-pin{position:relative;padding:0!important}   /* site.css pads every section by 120px; pinned stages must sit edge to edge */
@@ -145,8 +145,10 @@
 #x-hero .x-stage::before{content:"";position:absolute;left:0;right:0;top:0;height:190px;z-index:2;pointer-events:none;
   background:linear-gradient(rgba(10,17,40,.72),rgba(10,17,40,0))}
 /* veil: dissolves a pinned section in from / out to the cream of its neighbours, so there are no hard seams */
-.x-veil{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;background:var(--cream)}
-.x-veil.c2{background:var(--cream-2)}
+.x-veil{position:absolute;left:0;right:0;height:32vh;z-index:20;pointer-events:none;opacity:0;--vc:var(--cream)}
+.x-veil.c2{--vc:var(--cream-2)}
+.x-veil.t{top:0;background:linear-gradient(to bottom,var(--vc) 0%,var(--vc) 12%,transparent 100%)}
+.x-veil.b{bottom:0;background:linear-gradient(to top,var(--vc) 0%,var(--vc) 12%,transparent 100%)}
 #x-hero .x-stage{background:var(--navy);color:#fff;--gold:var(--gold-bright)}
 .x-hero-copy{position:absolute;inset:0;display:flex;align-items:center;z-index:3;padding-top:76px}
 .x-hero-copy .wrap{width:100%}
@@ -401,6 +403,20 @@
   .x-split .x-svc-toc li.on::before{width:22px}
   .x-split .x-svc-item{scroll-margin-top:330px}
 }
+
+/* phones: hero fits the visible screen */
+@media (max-width:560px){
+  #heroCopy{align-items:safe center;padding:86px 0 20px}
+  #heroCopy .kicker{font-size:11px;letter-spacing:.14em}
+  #heroCopy h1{font-size:clamp(30px,min(11.7vw,6.3svh),44px);line-height:1.04;margin:clamp(8px,1.6svh,14px) 0 clamp(10px,1.8svh,16px)}
+  #heroCopy .lede{font-size:clamp(14.5px,2.3svh,17px);line-height:1.5}
+  #heroCopy .hero-ctas{margin-top:clamp(14px,2.6svh,22px);gap:clamp(6px,1.4svh,12px)}
+  #heroCopy .hero-ctas .btn{padding:clamp(12px,1.9svh,15px) 20px}
+  #heroCopy .hero-note{margin-top:clamp(8px,1.4svh,12px);font-size:13px}
+}
+@media (max-width:560px) and (max-height:600px){
+  #heroCopy .hero-note{display:none}   /* very short screens: the button already says free consultation */
+}
 </style>
 </head>
 <body>
@@ -431,7 +447,7 @@
     <div class="x-stage">
       <video class="x-poster x-vid" id="heroVid" src="assets/hero-loop.mp4" poster="assets/hero.webp" autoplay loop muted playsinline preload="auto" aria-hidden="true"></video>
       <div class="x-shade" id="heroShade" style="opacity:.3"></div>
-      <div class="x-veil"></div>
+      <div class="x-veil t"></div><div class="x-veil b"></div>
       <div class="x-hero-copy x-load" id="heroCopy">
         <div class="wrap">
           <span class="kicker x-fade">For Australian food and drink brands</span>
@@ -453,7 +469,7 @@
     <div class="x-stage">
       <picture><source media="(max-width:560px)" srcset="assets/craft-beer-logo-sm-800.webp"><img class="x-break-img" id="breakImg" src="assets/craft-beer-logo.webp" srcset="assets/craft-beer-logo-800.webp 800w, assets/craft-beer-logo.webp 1184w" sizes="100vw" alt="Craft beer can with the Aussie Bridge Japan logo" style="object-position:36% 62%"></picture>
       <div class="x-shade" id="breakShade" style="opacity:0"></div>
-      <div class="x-veil c2"></div>
+      <div class="x-veil c2 t"></div><div class="x-veil c2 b"></div>
       <span class="kicker x-break-k" id="breakK">Australia → Japan</span>
       <div class="x-break-line l1" id="breakL1">Your Brand,</div>
       <div class="x-break-line l2" id="breakL2"><span class="accent-i">the Japanese Market</span></div>
@@ -515,7 +531,7 @@
   <!-- 4. SHOWCASE: sideways journey -->
   <section id="x-strip" class="x-pin" aria-label="Australian quality, Japanese market">
     <div class="x-stage">
-      <div class="x-veil c2"></div>
+      <div class="x-veil c2 t"></div><div class="x-veil c2 b"></div>
       <div class="x-track" id="track">
         <div class="x-panel"><picture><source media="(max-width:560px)" srcset="assets/craft-beer-logo-sm-800.webp"><img src="assets/craft-beer-logo.webp" srcset="assets/craft-beer-logo-800.webp 800w, assets/craft-beer-logo.webp 1184w" sizes="100vw" alt="Craft beer can with the Aussie Bridge Japan logo" style="object-position:36% 62%"></picture><p class="x-cap">Craft beer, RTDs, wine, spirits and mixers</p></div>
         <div class="x-panel"><img src="assets/retail.webp" alt="Japanese luxury retail"><p class="x-cap">Specialty retailers, supermarkets and department store food halls</p></div>
@@ -552,7 +568,7 @@
   <!-- 6. MODEL -->
   <section id="x-model" class="x-pin" aria-label="Our commercial model">
     <div class="x-stage">
-      <div class="x-veil c2"></div>
+      <div class="x-veil c2 t"></div><div class="x-veil c2 b"></div>
       <div class="wrap">
         <span class="kicker">Our Commercial Model</span>
         <h2 class="x-fill" id="fill">A Partnership, <span class="accent-i">Not a Purchase</span></h2>
@@ -607,7 +623,7 @@
   <!-- 8. CTA: the ship sails as you scroll -->
   <section id="x-cta" class="x-pin" aria-label="Start the conversation">
     <div class="x-stage">
-      <div class="x-veil"></div>
+      <div class="x-veil t"></div><div class="x-veil b"></div>
       <video class="x-poster x-vid" id="shipVid" src="assets/cta-ship-loop-v7.mp4" poster="assets/cta-ship-poster-v7.webp" loop muted playsinline preload="metadata" aria-hidden="true"></video>
       <div class="x-shade" style="opacity:.36"></div>
       <div class="copy" id="ctaCopy">
@@ -677,7 +693,7 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=c74ace7"></script>
+<script src="assets/site.js?v=10b3807"></script>
 <script>
 (function(){
   'use strict';
@@ -866,11 +882,13 @@
   /* ---------- wiring ---------- */
   var drivers=[dHero,dBreak,dStrip,dModel,dCta];
   [[dHero,0,1],[dBreak,0,1],[dStrip,1,1],[dModel,1,1],[dCta,1,0]].forEach(function(c){
-    var d=c[0], draw=d.render, v=$('.x-veil',d.sec);
+    var d=c[0], draw=d.render, vt=$('.x-veil.t',d.sec), vb=$('.x-veil.b',d.sec);
     d.render=function(p){
       draw(p);
+      // only the joining edge blends into the cream next door; the section itself never fades to a blank screen
       var top=d.sec.getBoundingClientRect().top, inT=clamp(1-top/window.innerHeight,0,1);
-      v.style.opacity=Math.max(c[1]?1-ease(inT):0, c[2]?ease(seg(p,.86,1)):0).toFixed(3);
+      vt.style.opacity=(c[1]?1-ease(inT):0).toFixed(3);
+      vb.style.opacity=(c[2]?ease(seg(p,.8,1)):0).toFixed(3);
     };
   });
   function onScroll(){
