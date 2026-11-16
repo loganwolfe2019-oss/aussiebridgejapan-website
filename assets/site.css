@@ -1,4 +1,10 @@
 /* Aussie Bridge Japan — shared styles for every English page (home included) */
+/* Stand-in for Cormorant Garamond while it loads: local Georgia scaled to Cormorant's proportions,
+   so the headline doesn't jump when the real font arrives (ratios measured 16 Nov 2026). */
+@font-face { font-family: "CG Fallback"; src: local("Georgia"); font-weight: 300 500; font-style: normal; size-adjust: 87.5%; ascent-override: 105.1%; descent-override: 33.1%; line-gap-override: 0%; }
+@font-face { font-family: "CG Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"); font-weight: 600 800; font-style: normal; size-adjust: 75.4%; ascent-override: 122.0%; descent-override: 38.5%; line-gap-override: 0%; }
+@font-face { font-family: "CG Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-weight: 300 500; font-style: italic; size-adjust: 77.9%; ascent-override: 118.1%; descent-override: 37.2%; line-gap-override: 0%; }
+@font-face { font-family: "CG Fallback"; src: local("Georgia Bold Italic"), local("Georgia-BoldItalic"); font-weight: 600 800; font-style: italic; size-adjust: 67.7%; ascent-override: 135.9%; descent-override: 42.8%; line-gap-override: 0%; }
 :root {
   --cream: #F5F3F0; --cream-2: #F2F0EA; --ink: #1A1A1A; --navy: #0A1128;
   --navy-soft: #101a38;
@@ -7,7 +13,7 @@
   --gold-bright: #C5A059; --gold-ink: #86662A; --gold: var(--gold-ink);
   --gold-soft: rgba(197,160,89,0.2);
   --line: #DEDBD3; --green: #4A7C59;
-  --serif: "Cormorant Garamond", Georgia, serif;
+  --serif: "Cormorant Garamond", "CG Fallback", Georgia, serif;
   --sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
 }
 .on-dark, .page-hero, .hero, .cta-band, .notfound, header.site, footer.site { --gold: var(--gold-bright); }
@@ -321,3 +327,7 @@ footer.site a:hover { color: var(--gold); }
   .hero-inner > * { animation: none; }
   .btn:active, .card:hover .icon, .num-card:hover, .num-card:hover .num { transform: none; }
 }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+article p a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+article p a:hover { color: var(--gold); }
